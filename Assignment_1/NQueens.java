@@ -1,71 +1,96 @@
-package Assignment_1;
-import java.util.List;
+//I used chatGPT to help me print the board as I used a list instead of a 2D matrix i usually use to print the board
+
 import java.util.ArrayList;
-//Fernando Romo CSC401-01 N-Queens Problem w/o Backtracking
-public class NQueens{
+import java.util.LinkedList;
+import java.util.List;
 
-    
+class NQueens {
+    static int n = 4;
 
+    public static List<List<String>> solveNQueens(int n) {
+        List<List<String>> res = new ArrayList<>();
+        char[][] board = new char[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int k = 0; k < n; k++) {
+                board[i][k] = '.';
+            }
+        }
+        recur(0, board, res);
+        return res;
+    }
+
+    // Reorganizes the board
+    public static void recur(int column, char[][] board, List<List<String>> res) {
+        if (column == board.length) {
+            res.add(convert(board));
+            return;
+        }
+
+        for (int row = 0; row < board.length; row++) {
+            if (isSafe(row, column, board)) {
+                board[row][column] = 'Q';
+                recur(column + 1, board, res);
+                board[row][column] = '.';
+            }
+        }
+    }
+
+    public static boolean isSafe(int row, int col, char[][] board) {
+        int copy_row = row;
+        int copy_col = col;
+
+        // left upper diagonal
+        while (row >= 0 && col >= 0) {
+            if (board[row][col] == 'Q') return false;
+            row--;
+            col--;
+        }
+
+        row = copy_row;
+        col = copy_col;
+
+        // leftwards
+        while (col >= 0) {
+            if (board[row][col] == 'Q') return false;
+            col--;
+        }
+
+        row = copy_row;
+        col = copy_col;
+
+        // left downwards diagonal
+        while (row < board.length && col >= 0) {
+            if (board[row][col] == 'Q') return false;
+            row++;
+            col--;
+        }
+
+        return true;
+    }
+
+    //Convers a list to string
+    public static List<String> convert(char[][] board) {
+        List<String> list = new LinkedList<>();
+        for (int i = 0; i < board.length; i++) {
+            String s = new String(board[i]);
+            list.add(s);
+        }
+        return list;
+    }
+
+    // Prints the board
+    public static void printBoard(List<String> board) {
+        for (String row : board) {
+            System.out.println(row);
+        }
+    }
 
     public static void main(String[] args) {
-
-    //     int n = 4;
-    //     int board[][] = new int[n][n];
-
-    //     displayBoard(board);
-
-    //     int x,y,z,w;
-    //     for(int q1 = 1; q1 <= 4; q1++){
-    //         x = q1;
-    //         for(int q2 = 5; q2 <= 8; q2++){
-    //             if(!solution(x, q2)){
-    //                 y = q2;
-    //                 for(int q3 = 9; q3 <= 12; q3++){
-    //                     if(!solution(x,q3) && !solution(y, q3)){
-    //                         z = q3;
-    //                         for(int q4 = 14; q4 <=16; q4++){
-    //                             if(!solution(x, q4) && !solution(y, q4) && !solution(z, q4)){
-    //                                 w = q4;
-    //                                 System.out.print(x+ ""+y+""+z+""+w );
-                                    
-    //                             }
-    //                         }
-    //                     }
-    //                 }
-    //         }
-    //         }
-            
-    //     }
-    // }
-
-    // static boolean solution(int i, int j){
-    //     if((j-i)%4==0){
-    //         return false;
-    //     }if(j-i==3){
-    //         return false;
-    //     }if(j-1==5){
-    //         return false;
-    //     }
-    //     return true;
-    // }
-
-    // public static void displayBoard(int[][] board){
-    //     for(int[] row: board){
-    //         for(int column: row){
-    //             System.out.print(column + "    ");
-    //         }
-    //         System.out.println();
-    //     }
-    // }
-
-    // public static void displayBoard(int[][] board){
-    //     int n = board.length;
-    //     for (int i = 0; i < n; i++) {
-    //         for (int j = 0; j < n; j++) {
-    //             System.out.print(board[i] == j ? "Q " : ". ");
-    //         }
-    //         System.out.println();
-    //     }
-    // }
-}
+        List<List<String>> solutions = solveNQueens(n);
+        System.out.println("Printing all possible solutions...");
+        for (List<String> solution : solutions) {
+            printBoard(solution);
+            System.out.println();
+        }
+    }
 }
