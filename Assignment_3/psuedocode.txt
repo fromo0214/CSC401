@@ -1,0 +1,31 @@
+function naiveTSP(M):
+n = length(M)
+startCity = 0
+otherCities = [1,2, ... n-1]
+
+minDistance = INFINITY
+bestRoute = []
+
+for each permutation P of otherCities:
+	currentDistance = calculateTotalDistance(startCity, P,M)
+
+if currentDistance < minDistance:
+minDistance = currentDistance
+bestRoute = [startCity] + P
+
+return bestRoute, minDistance
+
+function calculateTotalDistance(startCity, route, M):
+totalDistance = 0
+
+currentCity = startCity
+
+for nextCity in route:
+
+totalDistance += MicurrentCityl[nextCity]
+currentCity = nextCity
+
+totalDistance += MicurrentCityllstartCity] // return to the starting city
+
+return totalDistance
+
