@@ -1,0 +1,12 @@
+function PrimsAlgorithm(graph)
+    mst = emptyset
+    initialize a list 'visited' with all False
+    choose an arbitrary vertex as startingVertex
+    mark startingVertex as visited
+
+    while not all vertices are visited:
+        edge = findMinimumEdgeThatConnectsVisitedToUnvisited(visited,graph)
+        add edge to mst
+        mark the newly connected vertex as visited
+    
+    return mst
