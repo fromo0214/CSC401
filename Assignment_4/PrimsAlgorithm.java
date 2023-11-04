@@ -12,9 +12,7 @@ public class PrimsAlgorithm{
        int startingVertex = 0;
 
        visited[startingVertex] = true;
-        //this integer makes sure that the edges are less than 1 to the nodes
-        //to ensure the spanning tree is complete; number of edges in MST
-      
+
         while(!allVerticesVisited(visited)){
             Edge edge = findMinimumEdgeThatConnectsVisitedToUnvisited(visited, graph);
             mst.add(edge);
@@ -25,7 +23,6 @@ public class PrimsAlgorithm{
         System.out.println("Total sum of the Minimum Spanning Tree: " + totalWeight);
         return mst;
     }
-
 
     private static Edge findMinimumEdgeThatConnectsVisitedToUnvisited(boolean[] visited, Graph graph) {
         Edge minEdge = null;
@@ -57,11 +54,12 @@ public class PrimsAlgorithm{
     public static void main(String[] args) {
         Graph graph = new Graph(n);
 
-        graph.addEdge(0, 1, 9);
+        graph.addEdge(0, 1, 2);
         graph.addEdge(1, 2, 4);
         graph.addEdge(2, 3, 9);
-        graph.addEdge(0, 3, 4);
-        graph.addEdge(0, 2, 3);
+        graph.addEdge(0, 3, 0);
+        graph.addEdge(0, 2, 6);
+        graph.addEdge(1, 3, 1);
 
         List<Edge> minimumSpanningTree = Prims(graph);
         
